@@ -16,14 +16,22 @@ char *check_path(char **args, char **paths)
 		path_size = strlen(paths[i]) + strlen("/") + strlen(args[0]) + 1;
 		path = malloc(path_size);
 		if (path == NULL)
+		{
+			free(path);
+			free_arrays(paths);
 			return (NULL);
+		}
 		strcpy(path, paths[i]);
 		strcat(path, "/");
 		strcat(path, args[0]);
 		if (access(path, F_OK) == 0)
+		{
+			free_arrays(paths);
 			return (path);
+		}
 		free(path);
 		i++;
 	}
+	free_arrays(paths);
 	return (NULL);
 }

@@ -23,8 +23,5 @@ char *read_line(void)
 			exit(2);
 		}
 	}
-	del_comment(line);
-	if (line == NULL)
-		free(line);
 	return (line);
 }

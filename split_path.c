@@ -7,13 +7,17 @@
 char **split_paths(char *paths)
 {
 	char *token;
-	char **tokens = malloc(BUFSIZ * sizeof(char *));
+	char **tokens = malloc(BUFFSIZE * sizeof(char *));
 	int tokens_num = 0, i = 0;
 	char *paths_backup;
 
 	paths_backup = strdup(paths);
 	if (tokens == NULL || paths_backup == NULL)
+	{
+		free(paths_backup);
+		free_arrays(tokens);
 		return (NULL);
+	}
 	token = str_tok(paths_backup, ":");
 	while (token != NULL)
 	{
@@ -27,6 +31,7 @@ char **split_paths(char *paths)
 			}
 			free(tokens);
 			free(paths_backup);
+			free(token);
 			return (NULL);
 		}
 		tokens_num++;
@@ -34,5 +39,6 @@ char **split_paths(char *paths)
 	}
 	tokens[tokens_num] = NULL;
 	free(paths_backup);
+	free(token);
 	return (tokens);
 }

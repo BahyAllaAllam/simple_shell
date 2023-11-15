@@ -15,6 +15,7 @@ void loop(char **env)
 		if (isatty(STDIN_FILENO))
 			printf("$ ");
 		line = read_line();
+		del_comment(line);
 		args = split_line(line);
 		status = find_commands(args, env);
 		free(line);
