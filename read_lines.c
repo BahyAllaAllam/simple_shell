@@ -12,15 +12,19 @@ char *read_line(void)
 	if (get_line(&line, &n, stdin) == -1)
 	{
 		if (feof(stdin))
+		{
+			free(line);
 			exit(0);
+		}
 		else
 		{
+			free(line);
 			perror("./hsh: 1:");
-			exit(1);
+			exit(2);
 		}
 	}
 	del_comment(line);
 	if (line == NULL)
-		exit(0);
+		free(line);
 	return (line);
 }

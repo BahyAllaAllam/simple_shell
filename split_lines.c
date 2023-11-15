@@ -9,11 +9,8 @@ char **split_line(char *line)
 	int bufsize = BUFFSIZE, position = 0;
 	char **tokens = malloc(bufsize * sizeof(char *)), *token;
 
-	if (!tokens)
-	{
-		fprintf(stderr, "lsh: allocation error\n");
-		exit(EXIT_FAILURE);
-	}
+	if (!tokens || !line)
+		return (NULL);
 
 	token = str_tok(line, DELIMITRS);
 	while (token != NULL)
