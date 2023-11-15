@@ -10,7 +10,7 @@ void del_comment(char *line)
 
 	while (line[i] != '\0')
 	{
-		if (line[i - 1] == ' ' && line[i] == '#')
+		if (i > 0 && line[i - 1] == ' ' && line[i] == '#')
 		{
 			line[i] = '\0';
 			break;
