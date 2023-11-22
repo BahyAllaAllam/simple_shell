@@ -8,7 +8,7 @@
 int excute_command(char **args, char **env)
 {
 	pid_t pid;
-	int status;
+	int status, exit_status;
 
 	pid = fork();
 	if (pid == 0)
@@ -29,6 +29,19 @@ int excute_command(char **args, char **env)
 		do {
 			waitpid(pid, &status, WUNTRACED);
 		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
+		exit_status = WEXITSTATUS(status);
+		if (WIFEXITED(status))
+		{
+			if (exit_status == 0)
+			{
+				return (1);
+			}
+			exit(exit_status);
+		}
+		else if (WIFSIGNALED(status))
+			exit(128 + WTERMSIG(status));
+		else
+			exit(1);
 	}
 	return (1);
 }

@@ -15,10 +15,16 @@ void loop(char **env)
 		if (isatty(STDIN_FILENO))
 			printf("$ ");
 		line = read_line();
+		if (!line[0])
+		{
+			free(line);
+			status = 1;
+			continue;
+		}
 		del_comment(line);
 		args = split_line(line);
 		status = find_commands(args, env);
 		free(line);
-		free(args);
+		free_arrays(args);
 	}
 }

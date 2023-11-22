@@ -17,7 +17,6 @@ char *check_path(char **args, char **paths)
 		path = malloc(path_size);
 		if (path == NULL)
 		{
-			free(path);
 			free_arrays(paths);
 			return (NULL);
 		}

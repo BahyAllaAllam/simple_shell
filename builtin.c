@@ -30,11 +30,15 @@ int builtin_exit(char **args)
 	{
 		status_num = atoi(args[1]);
 		if (status_num > 0)
+		{
+			free_arrays(args);
 			exit(status_num);
-		else if (status_num < 0)
+		}
+		else
+		{
 			fprintf(stderr, "./hsh: 1: exit: Illegal number: %s\n", args[1]);
-		else if (status_num == 0)
-			fprintf(stderr, "./hsh: 1: exit: %s: numeric argument required\n", args[1]);
+			exit(2);
+		}
 	}
 	return (EXIT_SUCCESS);
 }

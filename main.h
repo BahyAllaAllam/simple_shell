@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
 int builtin_cd(char **args);
 int builtin_exit(char **args);
@@ -28,6 +29,6 @@ char *check_path(char **args, char **paths);
 void loop(char **env);
 
 #define BUFFSIZE 1024
-#define DELIMITRS " \t\r\n\a"
+#define DELIMITRS " \n\t\r\a"
 
 #endif

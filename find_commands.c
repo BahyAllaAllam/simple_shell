@@ -35,6 +35,8 @@ int find_commands(char **args, char **env)
 		correct_path = check_path(args, split_paths(paths));
 		if (correct_path)
 		{
+			free(args[0]);
+			args[0] = malloc(strlen(correct_path) + 1);
 			strcpy(args[0], correct_path);
 			free(correct_path);
 		}

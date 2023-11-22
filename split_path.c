@@ -24,14 +24,14 @@ char **split_paths(char *paths)
 		tokens[tokens_num] = strdup(token);
 		if (tokens[tokens_num] == NULL)
 		{
+			free(token);
 			while (i < tokens_num)
 			{
 				free(tokens[i]);
 				i++;
 			}
-			free(tokens);
+			free_arrays(tokens);
 			free(paths_backup);
-			free(token);
 			return (NULL);
 		}
 		tokens_num++;
