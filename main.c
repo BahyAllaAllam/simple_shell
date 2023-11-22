@@ -1,14 +1,21 @@
 #include "main.h"
+
 /**
- * main - init function
- * @ac: arguments count
- * @av: arguments variables
- * @env: environment
- * Return: Always 0.
+ * main - main
+ * @ac: ac
+ * @av: av
+ *
+ * Return: 0 or 1
 */
-int main(int ac, char **av, char **env)
+int main(int ac, char **av)
 {
+	info_s in[] = { INFO_INIT };
 	int x = 2;
+
+	asm ("mov %1, %0\n\t"
+		"add $3, %0"
+		: "=r" (x)
+		: "r" (x));
 
 	if (ac == 2)
 	{
@@ -19,12 +26,20 @@ int main(int ac, char **av, char **env)
 				exit(126);
 			if (errno == ENOENT)
 			{
-				fprintf(stderr, "%s: 0: Can't open %s\n", av[0], av[1]);
+				e_put_s(av[0]);
+				e_put_s(": 0: Can't open ");
+				e_put_s(av[1]);
+				e_put_char('\n');
+				e_put_char(BUF_FLUSH);
 				exit(127);
 			}
 			return (EXIT_FAILURE);
 		}
+		in->rfd = x;
 	}
-	loop(env);
+	pop_env_lis(in);
+	rea_his(in);
+	hsh(in, av);
 	return (EXIT_SUCCESS);
 }
+
